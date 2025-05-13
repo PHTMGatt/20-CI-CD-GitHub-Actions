@@ -24,7 +24,9 @@ jobs:
            cache: 'npm'
       - name: install dependencies
         run: npm ci    # Install dependencies
-      - run: npm run build --if-present
-      - name: Start Server
-        run: npm start
-      - run: npm run test
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm start
