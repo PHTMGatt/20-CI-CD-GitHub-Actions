@@ -30,4 +30,4 @@ jobs:
         with:
           build: npm run build
           start: npm start
-          component: true
+          component: true  # Note WHERE is this coming from and how else can we run just a COMPONENT test (with npm run test-component (?))
