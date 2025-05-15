@@ -1,10 +1,9 @@
 # CI/CD Pipeline with GitHub Actions & Render
 
-## 🔗 Live Links
+## 🔗 Submission Links
 
-- 🔍 **GitHub Repository:** [PHTMGatt/20-CI-CD-GitHub-Actions](https://github.com/PHTMGatt/20-CI-CD-GitHub-Actions)
-- 🌐 **Deployed Application:** [two0-ci-cd-github-actions-zubp.onrender.com](https://two0-ci-cd-github-actions-zubp.onrender.com)
-
+- 🧠 **GitHub:** [View Repository](https://github.com/PHTMGatt/20-CI-CD-GitHub-Actions)
+- 🚀 **Render:** [View Live App](https://two0-ci-cd-github-actions-zubp.onrender.com)
 
 ## Overview
 
