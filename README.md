@@ -16,10 +16,12 @@ This project implements a CI/CD pipeline using GitHub Actions and Render. Contin
 - Two separate GitHub Actions workflows: `cypress-tests.yml` and `render-deploy.yml`
 - GitFlow branching strategy: `feature/*` → `develop` → `main`
 
+## 💻 Local Setup Instructions
+
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/PHTMGatt/20-CI-CD-GitHub-Actions.git
+cd 20-CI-CD-GitHub-Actions
 
 # Create and push develop branch
 git checkout -b develop
@@ -33,3 +35,24 @@ npm start
 
 # (Optional) Run Cypress tests manually
 npx cypress open
+```
+
+## 🧪 GitHub Actions Workflows
+
+### CI Workflow: `.github/workflows/cypress-tests.yml`
+
+This workflow runs Cypress tests when a pull request is made to `develop`.
+
+### CD Workflow: `.github/workflows/render-deploy.yml`
+
+This workflow triggers a deployment to Render when code is merged to `main`.
+
+## 🔐 GitHub Secrets Required
+
+| Secret Name              | Purpose                              |
+|--------------------------|--------------------------------------|
+| `RENDER_DEPLOY_HOOK_URL` | Render deploy hook URL for deployment |
+
+## 📝 Summary
+
+This project demonstrates an automated approach to testing and deployment using GitHub Actions, ensuring that all changes meet quality standards before going live.
