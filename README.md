@@ -1,7 +1,10 @@
 # CI/CD Pipeline with GitHub Actions & Render
 
-![CI Tests](https://img.shields.io/github/actions/workflow/status/your-username/your-repo/cypress-tests.yml?branch=develop)  
-![CD Deploy](https://img.shields.io/github/actions/workflow/status/your-username/your-repo/render-deploy.yml?branch=main)
+## 🔗 Live Links
+
+- 🔍 **GitHub Repository:** [PHTMGatt/20-CI-CD-GitHub-Actions](https://github.com/PHTMGatt/20-CI-CD-GitHub-Actions)
+- 🌐 **Deployed Application:** [two0-ci-cd-github-actions-zubp.onrender.com](https://two0-ci-cd-github-actions-zubp.onrender.com)
+
 
 ## Overview
 
