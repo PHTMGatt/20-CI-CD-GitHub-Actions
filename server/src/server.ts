@@ -11,9 +11,9 @@ app.use(express.json());
 
 // Serves static files in the entire client's dist folder
 app.use(express.static('../client/dist'));
-
+// note Testing develop branch action
 app.use(routes);
-
+// note testing github actions test script
 db.once('open', () => {
   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
 });
