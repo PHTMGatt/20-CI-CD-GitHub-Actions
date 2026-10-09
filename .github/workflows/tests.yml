@@ -1,33 +1,30 @@
-name: Testing - Running Cypress Tests on develop branch
-# Our TRIGGER is set to run on the develop branch only, so we can test our code before a pull request is made on our develop branch
+name: Cypress Component Tests
+
 on:
   pull_request:
-    branches: [ "develop" ]
-# Here we are listing the jobs that we want to run
-jobs:
-    # here we setup a Test-Runner 
-  build:
+    branches:
+      - develop
+      - main
 
+jobs:
+  test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-           node-version: ${{ matrix.node-version }}
-           cache: 'npm'
-      - name: install dependencies
-        run: npm ci    # Install dependencies
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          build: npm run build
-          start: npm start
-          component: true  # Note WHERE is this coming from and how else can we run just a COMPONENT test (with npm run test-component (?))
+          node-version: 22.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run Cypress component tests
+        run: npm run test-component
