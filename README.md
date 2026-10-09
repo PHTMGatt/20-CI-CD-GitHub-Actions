@@ -1,58 +1,55 @@
 # CI/CD Pipeline with GitHub Actions & Render
 
-## 🔗 Submission Links
+## Submission Links
 
-- 🧠 **GitHub:** [View Repository](https://github.com/PHTMGatt/20-CI-CD-GitHub-Actions)
-- 🚀 **Render:** [View Live App](https://two0-ci-cd-github-actions-zubp.onrender.com)
+- **GitHub:** [View Repository](https://github.com/PHTMGatt/20-CI-CD-GitHub-Actions)
+- **Render:** [View Live App](https://two0-ci-cd-github-actions-zubp.onrender.com)
 
 ## Overview
 
-This project implements a CI/CD pipeline using GitHub Actions and Render. Continuous Integration runs Cypress component tests on every pull request to the `develop` branch, while Continuous Deployment automatically deploys the application to Render when code is merged into the `main` branch.
+This project demonstrates a CI/CD workflow using GitHub Actions, Cypress component tests, and Render deployment automation.
 
-### ✅ Features
+Continuous Integration runs Cypress component tests for pull requests targeting `develop` or `main`. Continuous Deployment validates and builds merged pull requests to `main`, then triggers the existing Render deploy hook once.
 
-- Cypress tests run automatically on PRs to `develop`
-- Deploy hook triggers deployment to Render on merge to `main`
-- Two separate GitHub Actions workflows: `cypress-tests.yml` and `render-deploy.yml`
-- GitFlow branching strategy: `feature/*` → `develop` → `main`
+## Features
 
-## 💻 Local Setup Instructions
+- Cypress component tests on pull requests to `develop` and `main`
+- Production build verification before deployment
+- Render deployment only after a pull request is actually merged into `main`
+- Separate CI and CD workflows
+- GitFlow-friendly branching: `feature/*` → `develop` → `main`
+
+## Local Setup
 
 ```bash
-# Clone the repository
 git clone https://github.com/PHTMGatt/20-CI-CD-GitHub-Actions.git
 cd 20-CI-CD-GitHub-Actions
-
-# Create and push develop branch
-git checkout -b develop
-git push -u origin develop
-
-# Install dependencies
 npm install
-
-# Start the app
 npm start
-
-# (Optional) Run Cypress tests manually
-npx cypress open
 ```
 
-## 🧪 GitHub Actions Workflows
+Run the Cypress component tests with:
 
-### CI Workflow: `.github/workflows/cypress-tests.yml`
+```bash
+npm run test-component
+```
 
-This workflow runs Cypress tests when a pull request is made to `develop`.
+## GitHub Actions Workflows
 
-### CD Workflow: `.github/workflows/render-deploy.yml`
+### CI: `.github/workflows/tests.yml`
 
-This workflow triggers a deployment to Render when code is merged to `main`.
+Runs the application build and Cypress component tests for pull requests targeting `develop` or `main`.
 
-## 🔐 GitHub Secrets Required
+### CD: `.github/workflows/deploy.yml`
 
-| Secret Name              | Purpose                              |
-|--------------------------|--------------------------------------|
-| `RENDER_DEPLOY_HOOK_URL` | Render deploy hook URL for deployment |
+Runs only when a pull request into `main` is closed **and merged**. The workflow installs dependencies, verifies the production build, then triggers the Render deploy hook once.
 
-## 📝 Summary
+## GitHub Secret Required
 
-This project demonstrates an automated approach to testing and deployment using GitHub Actions, ensuring that all changes meet quality standards before going live.
+| Secret | Purpose |
+| --- | --- |
+| `RENDER_DEPLOY_HOOK` | Render deploy hook URL used by the CD workflow |
+
+## Summary
+
+The project demonstrates automated quality checks before merge and controlled deployment to Render after successful merges to the production branch.
