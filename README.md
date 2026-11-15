@@ -1,55 +1,60 @@
-# CI/CD Pipeline with GitHub Actions & Render
+# CI/CD Pipeline with GitHub Actions and Render
 
-## Submission Links
+A MERN tech quiz used to practise a real delivery pipeline: Cypress component tests run on every pull request, and a merge to `main` builds the app and deploys it to Render.
 
-- **GitHub:** [View Repository](https://github.com/PHTMGatt/20-CI-CD-GitHub-Actions)
-- **Render:** [View Live App](https://two0-ci-cd-github-actions-zubp.onrender.com)
+**Live app:** https://two0-ci-cd-github-actions-zubp.onrender.com
 
-## Overview
+> Hosted on Render's free tier, so the first visit after a quiet spell can take a while to wake up.
 
-This project demonstrates a CI/CD workflow using GitHub Actions, Cypress component tests, and Render deployment automation.
+![Cypress results from an earlier version of the CI workflow](./Assets/19-Actions-Cypress-Tests.png)
 
-Continuous Integration runs Cypress component tests for pull requests targeting `develop` or `main`. Continuous Deployment validates and builds merged pull requests to `main`, then triggers the existing Render deploy hook once.
+*Cypress results from an earlier version of the workflow, which ran a Node 18, 20 and 22 matrix. The current workflow runs on Node 22 only.*
 
-## Features
+## What it does
 
-- Cypress component tests on pull requests to `develop` and `main`
-- Production build verification before deployment
-- Render deployment only after a pull request is actually merged into `main`
-- Separate CI and CD workflows
-- GitFlow-friendly branching: `feature/*` → `develop` → `main`
+- **CI** (`.github/workflows/tests.yml`): on pull requests to `develop` or `main`, installs with `npm ci`, builds the app and runs the Cypress component tests.
+- **CD** (`.github/workflows/deploy.yml`): runs only when a pull request into `main` is closed and merged. It installs, verifies the production build, then calls the Render deploy hook once.
+- **The app:** a React and TypeScript quiz served by an Express API, with questions stored in MongoDB.
+- **Branching:** `feature/*` to `develop` to `main`.
 
-## Local Setup
+## Tech stack
+
+| Area | Tools |
+|---|---|
+| Front end | React 18, TypeScript, Vite |
+| Back end | Node.js, Express 4, Mongoose, MongoDB |
+| Testing | Cypress 13 (component tests) |
+| CI/CD | GitHub Actions, Render |
+
+## Run it locally
+
+Needs Node.js and a MongoDB database. Copy `server/.env.EXAMPLE` to `server/.env` and set:
+
+- `MONGODB_URI`
+- `PORT` (optional, defaults to 3001)
 
 ```bash
-git clone https://github.com/PHTMGatt/20-CI-CD-GitHub-Actions.git
-cd 20-CI-CD-GitHub-Actions
-npm install
-npm start
+npm install     # installs root, server and client dependencies
+npm run build   # builds the server and the client
+npm run seed    # loads the questions into MongoDB
+npm start       # serves the app on http://localhost:3001
 ```
 
-Run the Cypress component tests with:
+For development with live reload, use `npm run develop`.
+
+## Test it
 
 ```bash
-npm run test-component
+npm run test-component   # Cypress component tests, headless (what CI runs)
+npm run test-gui         # open the Cypress UI
 ```
 
-## GitHub Actions Workflows
+## Pipeline setup
 
-### CI: `.github/workflows/tests.yml`
+The deploy workflow needs one repository secret, `RENDER_DEPLOY_HOOK`, holding the Render deploy hook URL. It is never stored in the repo.
 
-Runs the application build and Cypress component tests for pull requests targeting `develop` or `main`.
+## What I learned / built
 
-### CD: `.github/workflows/deploy.yml`
-
-Runs only when a pull request into `main` is closed **and merged**. The workflow installs dependencies, verifies the production build, then triggers the Render deploy hook once.
-
-## GitHub Secret Required
-
-| Secret | Purpose |
-| --- | --- |
-| `RENDER_DEPLOY_HOOK` | Render deploy hook URL used by the CD workflow |
-
-## Summary
-
-The project demonstrates automated quality checks before merge and controlled deployment to Render after successful merges to the production branch.
+- Splitting CI and CD into separate workflows, and making deploys fire only on a merged pull request rather than any closed one.
+- Keeping a deploy hook in a GitHub secret and failing the job loudly (`curl --fail`) if the hook call breaks.
+- Running component tests with Cypress against a mocked API so the pipeline needs no database.
