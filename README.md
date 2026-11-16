@@ -2,6 +2,8 @@
 
 A MERN tech quiz used to practise a real delivery pipeline: Cypress component tests run on every pull request, and a merge to `main` builds the app and deploys it to Render.
 
+![Tech quiz question screen](docs/screenshot.png)
+
 **Live app:** https://two0-ci-cd-github-actions-zubp.onrender.com
 
 > Hosted on Render's free tier, so the first visit after a quiet spell can take a while to wake up.
