@@ -23,9 +23,9 @@ A MERN tech quiz used to practise a real delivery pipeline: Cypress component te
 
 | Area | Tools |
 |---|---|
-| Front end | React 18, TypeScript, Vite |
-| Back end | Node.js, Express 4, Mongoose, MongoDB |
-| Testing | Cypress 13 (component tests) |
+| Front end | React 19, TypeScript, Vite |
+| Back end | Node.js, Express 5, Mongoose, MongoDB |
+| Testing | Cypress 16 (component tests) |
 | CI/CD | GitHub Actions, Render |
 
 ## Run it locally
